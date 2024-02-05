@@ -1,4 +1,4 @@
-import { createContext, useEffect, useState } from "react";
+import { createContext, useContext, useEffect, useState } from "react";
 
 const BASE_URL = "http://localhost:9000";
 const citiesContext = createContext();
@@ -34,4 +34,13 @@ function CitiesProvider({ children }) {
   );
 }
 
-export { CitiesProvider };
+// cusotm hook to consume data
+function useCities() {
+  const context = useContext(citiesContext);
+  if (context === undefined) {
+    throw new Error("Cities context is used outside of the cities provider.");
+  }
+  return context;
+}
+
+export { CitiesProvider, useCities };
